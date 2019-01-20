@@ -1,0 +1,25 @@
+<h2>Heroes 列表</h2>
+<!-- 添加英雄 start -->
+<div>
+  <label>添加英雄:</label>
+  <input #heroName placeholder="请填写英雄的名字"/>
+  <button (click)="asyncAddHero(heroName.value); heroName.value=''">
+    添加
+  </button>
+</div>
+<!-- 添加英雄 end -->
+<!-- 英雄列表 start -->
+<ul class="heroes">
+  <li *ngFor="let hero of heroes"
+    [class.selected]="hero === selectedHero"
+    (click)="onSelect(hero)">
+    <a routerLink="/detail/{{hero.id}}">
+      <span class="badge">{{hero.id}}</span> {{hero.name}}
+    </a>
+    <!-- 删除按钮 start -->
+    <button class="delete" title="delete hero"
+      (click)="asyncDeleteHero(hero)">x</button>
+    <!-- 删除按钮 end -->
+  </li>
+</ul>
+<!-- 英雄列表 end -->

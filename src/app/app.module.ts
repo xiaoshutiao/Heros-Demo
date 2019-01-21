@@ -7,13 +7,13 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
+import { HeroSearchModule } from './components/hero-search/hero-search.module';
 /* Component */
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './pages/heroes/heroes.component';
 import { HeroDetailComponent } from './pages/hero-detail/hero-detail.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { HeroSearchComponent } from './components/hero-search/hero-search.component';
 /* Service */
 import { InMemoryDataService }  from './mock/in-memory-data.service';
 
@@ -24,13 +24,13 @@ import { InMemoryDataService }  from './mock/in-memory-data.service';
     HeroesComponent,
     HeroDetailComponent,
     MessagesComponent,
-    DashboardComponent,
-    HeroSearchComponent
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HeroSearchModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }

@@ -14,9 +14,11 @@ import { HeroesComponent } from './pages/heroes/heroes.component';
 import { HeroDetailComponent } from './pages/hero-detail/hero-detail.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MessagesComponent } from './components/messages/messages.component';
+import { LoginComponent } from './pages/login/login.component';
 /* Service */
 import { InMemoryDataService }  from './mock/in-memory-data.service';
 
+import { httpInterceptorProviders } from './http-interceptors/index';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { InMemoryDataService }  from './mock/in-memory-data.service';
     HeroesComponent,
     HeroDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -33,12 +36,18 @@ import { InMemoryDataService }  from './mock/in-memory-data.service';
     HeroSearchModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
+      InMemoryDataService, 
+      { 
+        dataEncapsulation: false,
+        passThruUnknownUrl: true
+      }
     ),
     BrowserAnimationsModule,
     NgZorroAntdMobileModule
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

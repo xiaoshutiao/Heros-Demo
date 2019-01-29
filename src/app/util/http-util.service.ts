@@ -12,11 +12,6 @@ export class HttpUtilService {
     private http: HttpClient
   ) { }
 
-  // 模拟请求
-  // setTimeOut(timeToDelay) {
-  //   return of('Request Complete!').pipe(timeout(3000));
-  // }
-
   /**
    * 统一发送请求
    * @param params
@@ -89,16 +84,6 @@ export class HttpUtilService {
       tap(_ => console.log("patch请求",_)),
       catchError(this.handleError())
     );
-  }
-
-  /**
-   * 处理请求成功
-   * @param res
-   * @returns {data: (string|null|((node:any)=>any)}
- */
-  public handleSuccess(res: any) {
-    console.log("##接口返回的结果##",res);
-    return res;
   }
 
   /**

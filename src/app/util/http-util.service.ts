@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, of} from 'rxjs';
+import { MessagesService } from '../services/messages.service';
 import { catchError, delay, tap, mapTo, concatMap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpUtilService {
+  public testArr = [];
 
   constructor(
     private http: HttpClient
@@ -23,14 +25,11 @@ export class HttpUtilService {
     console.log("##请求的参数##",params['data']);
 
     const access_token = localStorage.getItem("access_token");
-    // const headers = new HttpHeaders().set('Authorization', 'Token' + ' ' + access_token);
     let headers = {
       headers: new HttpHeaders({
         'Authorization': 'Token' + ' ' + access_token
       })
     };
-
-    console.log("测试access_token:"+access_token);
 
     if (params['method'] == 'post' || params['method'] == 'POST') {
       //post请求
@@ -54,7 +53,7 @@ export class HttpUtilService {
     return this.http.get(url,headers)
       .pipe(
         tap(_ => console.log("get请求",_)),
-        catchError(this.handleError())
+        catchError(this.handleError("##请求失败的接口##"+'\n'+url))
       );
   }
 
@@ -68,7 +67,7 @@ export class HttpUtilService {
     return this.http.post(url,params,headers)
     .pipe(
       tap(_ => console.log("post请求",_)),
-      catchError(this.handleError())
+      catchError(this.handleError("##请求失败的接口##"+'\n'+url))
     );
   }
 
@@ -82,7 +81,7 @@ export class HttpUtilService {
     return this.http.patch(url,params,headers)
     .pipe(
       tap(_ => console.log("patch请求",_)),
-      catchError(this.handleError())
+      catchError(this.handleError("##请求失败的接口##"+'\n'+url))
     );
   }
 
@@ -91,10 +90,19 @@ export class HttpUtilService {
    * @param error
    * @returns {void|Promise<string>|Promise<T>|any}
    */
-  public handleError<T>(result?: T) {
+  public handleError<T>(tag,result?: T) {
     return (error: any): Observable<T> => {
       console.log("请求错误",error);
+      this.addLogs(tag,error.message);
       return of(result as T);
     };
+  }
+
+  /*
+    打印日志 通过MessageService
+  */
+  public addLogs(message: string,error: any) {
+    this.testArr.push(message+'\n'+error);
+    console.log("##testArr:",this.testArr);
   }
 }

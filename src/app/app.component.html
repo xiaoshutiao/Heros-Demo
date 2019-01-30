@@ -5,5 +5,24 @@
   <a routerLink="/heroes">Heroes</a>
 </nav>
 
+<div class="di-component">
+  <h3>嵌套的服务依赖</h3>
+  <div>Name: {{userContext.name}}</div>
+  <div>Role: {{userContext.role}}</div>
+</div>
+
+<div class="di-component">
+  <h3>把服务的范围限制到某个组件的子树下</h3>
+  <h3>Unsorted Heroes</h3>
+  <app-unsorted-villains></app-unsorted-villains>
+</div>
+  
+<div class="di-component">
+  <h3>把服务的范围限制到某个组件的子树下</h3>
+  <h3>Sorted Heroes</h3>
+  <app-sorted-villains></app-sorted-villains>
+</div>
+
+
 <router-outlet></router-outlet>
 <app-messages></app-messages>
